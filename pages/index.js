@@ -8,7 +8,7 @@ export default function Home() {
         <title>Home</title>
       </Head>
       <div>
-        <Screen></Screen>
+        <Screen src='screen.jpg'></Screen>
       </div>
     </>
   )

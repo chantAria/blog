@@ -12,10 +12,10 @@ const debounce = (fn, delay) => {
   }
 }
 
-export default function Screen() {
-  console.log('渲染')
+export default function Screen({src}) {
   const [style, setStyle] = useState({}) //定义需要应用的style
   const ref = useRef() //获取img来得到宽高
+  // 尺寸变化监听函数，设置新的style值
   const onResize = () => {
     const size = {
       width: document.documentElement.clientWidth,
@@ -31,7 +31,6 @@ export default function Screen() {
       //横屏
       z = width / size.width
     }
-    console.log(width, height, z)
     setStyle({
       width: (width / z) * 1.2,
       height: (height / z) * 1.2,
@@ -39,14 +38,14 @@ export default function Screen() {
       marginTop: -0.08 * (height / z),
     })
   }
-  const deb = debounce(onResize, 10)
+  const deb = debounce(onResize, 10)// 节流函数包裹的监听函数
   //刚加载时Parallax化
   useEffect(() => {
     const el = document.getElementById('parallax-box')
     new Parallax(el)
   }, [])
   //窗口尺寸变化监听
-  useLayoutEffect(() => {
+  useEffect(() => {
     window.addEventListener('resize', deb)
     onResize()
     return () => {
@@ -57,19 +56,30 @@ export default function Screen() {
   return (
     <div>
       <div id='parallax-box' data-clip-relative-input>
-        <img ref={ref} data-depth='0.6' src='screen.jpg' style={style}></img>
+        <img ref={ref} data-depth='0.6' src={src} style={style}></img>
+        <div className='cover' data-depth='0'></div>
+        <div className='test' data-depth='0.2'>111</div>
       </div>
-      <div className='content'>111</div>
       <style jsx>{`
         #parallax-box {
           height: 100vh;
           width: 100%;
           overflow: hidden;
-          position: relative;
           text-align: center;
         }
-        .content {
-          height: 300px;
+        .cover{
+            
+            width: 200px;
+            height: 100px;
+            background-color: red;
+            -webkit-clip-path:polygon(
+                0 0,
+                50% 70%，
+                60% 40%
+            )
+        }
+        .test {
+          font-size: 10rem;
         }
       `}</style>
     </div>

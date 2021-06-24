@@ -2896,7 +2896,7 @@
     "rc-resize-observer" "^1.0.0"
     "rc-util" "^5.0.7"
 
-"react-dom@*", "react-dom@^17.0.2", "react-dom@>= 16.9.0", "react-dom@>=16.9.0", "react-dom@17.0.2":
+"react-dom@*", "react-dom@^17.0.2", "react-dom@>= 16.9.0", "react-dom@>=16.9.0", "react-dom@16.x.x || 17.x.x", "react-dom@17.0.2":
   "integrity" "sha1-7P+2hF462Nv83EmPDQqTlzZQLCM="
   "resolved" "https://registry.nlark.com/react-dom/download/react-dom-17.0.2.tgz"
   "version" "17.0.2"
@@ -2915,12 +2915,17 @@
   "resolved" "https://registry.nlark.com/react-is/download/react-is-17.0.2.tgz"
   "version" "17.0.2"
 
+"react-parallax@^3.3.0":
+  "integrity" "sha1-efejNFHnpBnQBS95XF02VaoeILQ="
+  "resolved" "https://registry.nlark.com/react-parallax/download/react-parallax-3.3.0.tgz"
+  "version" "3.3.0"
+
 "react-refresh@0.8.3":
   "integrity" "sha1-ch1GV2ctQAxePHXQY8SoX7LV1o8="
   "resolved" "https://registry.nlark.com/react-refresh/download/react-refresh-0.8.3.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.nlark.com%2Freact-refresh%2Fdownload%2Freact-refresh-0.8.3.tgz"
   "version" "0.8.3"
 
-"react@*", "react@^16.8.0 || ^17.0.0", "react@^17.0.2", "react@>= 16.9.0", "react@>=16.0.0", "react@>=16.9.0", "react@15.x.x || 16.x.x || 17.x.x", "react@17.0.2":
+"react@*", "react@^16.8.0 || ^17.0.0", "react@^17.0.2", "react@>= 16.9.0", "react@>=16.0.0", "react@>=16.9.0", "react@15.x.x || 16.x.x || 17.x.x", "react@16.x.x || 17.x.x", "react@17.0.2":
   "integrity" "sha1-0LXMUW0p6z7uOD91tihkz7aAADc="
   "resolved" "https://registry.nlark.com/react/download/react-17.0.2.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.nlark.com%2Freact%2Fdownload%2Freact-17.0.2.tgz"
   "version" "17.0.2"
