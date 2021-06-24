@@ -1,5 +1,6 @@
 import Head from 'next/head'
-import Header from '../components/Header'
+// import Header from '../components/Header'
+import Screen from '../components/Screen'
 
 export default function Home() {
   return (
@@ -8,7 +9,8 @@ export default function Home() {
         <title>Home</title>
       </Head>
       <div>
-        <Header></Header>
+        {/* <Header></Header> */}
+        <Screen></Screen>
       </div>
     </>
   )
