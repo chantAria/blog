@@ -1,5 +1,5 @@
 import Parallax from 'parallax-js'
-import { useEffect, useState, useRef, useLayoutEffect } from 'react'
+import { useEffect, useState, useRef, useCallback } from 'react'
 
 //防抖函数
 const debounce = (fn, delay) => {
@@ -16,7 +16,7 @@ export default function Screen({src}) {
   const [style, setStyle] = useState({}) //定义需要应用的style
   const ref = useRef() //获取img来得到宽高
   // 尺寸变化监听函数，设置新的style值
-  const onResize = () => {
+  const onResize = useCallback(() => {
     const size = {
       width: document.documentElement.clientWidth,
       height: document.documentElement.clientHeight,
@@ -24,9 +24,11 @@ export default function Screen({src}) {
     const width = ref.current.width
     const height = ref.current.height
     let z
+    let marginLeft = null
     if (width / size.width > height / size.height) {
       //竖屏
       z = height / size.height
+      marginLeft = size.width / 2 - width / 2 
     } else {
       //横屏
       z = width / size.width
@@ -34,11 +36,11 @@ export default function Screen({src}) {
     setStyle({
       width: (width / z) * 1.2,
       height: (height / z) * 1.2,
-      marginLeft: -0.08 * (width / z),
+      marginLeft: marginLeft ? marginLeft : -0.08 * (width / z),
       marginTop: -0.08 * (height / z),
     })
-  }
-  const deb = debounce(onResize, 10)// 节流函数包裹的监听函数
+  }, [])
+  const deb = useCallback(debounce(onResize, 10),[])// 节流函数包裹的监听函数
   //刚加载时Parallax化
   useEffect(() => {
     const el = document.getElementById('parallax-box')
