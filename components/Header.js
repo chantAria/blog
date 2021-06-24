@@ -8,7 +8,7 @@ export default function Header() {
     <div className='header'>
       <Row justify='center'>
         {/*24栅格下,sm以下占满,md以上占10格*/}
-        <Col xs={24} sm={24} md={10} lg={10} xl={10}>
+        <Col xs={24} sm={24} md={10} lg={15} xl={12}>
           <span className='header-logo'>张新宇</span>
           <span className='header-text'>这是个测试</span>
         </Col>
@@ -30,7 +30,7 @@ export default function Header() {
               视频
             </Menu.Item>
             <Menu.Item key='life'>
-              <HomeOutlined />
+              <SmileOutlined />
               生活
             </Menu.Item>
           </Menu>
@@ -41,8 +41,8 @@ export default function Header() {
           background-color: #fff;
           padding: 0.4rem;
           overflow: hidden;
-          height: 2.8rem;
-          border-bottom: 1px solid #ccc;
+          height: 3.2rem;
+          border-bottom: 1px solid #eee;
         }
         .header-logo {
           color: #1e90ff;
@@ -54,13 +54,15 @@ export default function Header() {
           padding-left: 0.3rem;
         }
         :global(.ant-menu-horizontal) {
-          height: 100%;
-          vertical-align: middle;
+          line-height: 2.4rem;
         }
         :global(.ant-menu-item) {
-          font-size: 0.7rem !important;
-          padding-left: 1rem !important;
-          padding-right: 1rem !important;
+          font-size: 0.7rem;
+          padding-left: 1rem;
+          padding-right: 1rem;
+        }
+        :global(.anticon){
+          padding-right: 0.3rem;
         }
       `}</style>
     </div>
