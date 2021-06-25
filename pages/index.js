@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import Screen from '../components/Screen'
+import FirstScreen from '../components/FirstScreen'
 
 export default function Home() {
   return (
@@ -8,7 +8,7 @@ export default function Home() {
         <title>Home</title>
       </Head>
       <div>
-        <Screen src='screen.jpg'></Screen>
+        <FirstScreen></FirstScreen>
       </div>
     </>
   )
