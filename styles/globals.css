@@ -5,8 +5,8 @@ body {
   padding: 0;
   margin: 0;
   background-color: #f6f6f6; /*全局背景*/
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: 'PingFang SC', 'Hiragino Sans GB', 'Microsoft Yahei',
+    'WenQuanYi Micro Hei', 'sans-serif';
 }
 
 a {

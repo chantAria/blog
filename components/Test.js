@@ -5,30 +5,67 @@
 import Parallax from 'parallax-js'
 import { useEffect, useState, useRef, useCallback } from 'react'
 
-//防抖函数
-const debounce = (fn, delay) => {
-  let timer = null
-  return () => {
-    if (timer) {
-      clearTimeout(timer)
+const useWinSize = () => {
+  console.log('winSize:in')
+  const [size, setSize] = useState()
+  //防抖函数
+  const debounce = (fn, delay) => {
+    let timer = null
+    return () => {
+      if (timer) {
+        clearTimeout(timer)
+      }
+      timer = setTimeout(fn, delay)
     }
-    timer = setTimeout(fn, delay)
   }
+  const onResize = useCallback(() => {
+    setSize({
+      width: document.documentElement.clientWidth,
+      height: document.documentElement.clientHeight,
+    })
+  }, [])
+  const deb = useCallback(debounce(onResize, 10), []) // 节流函数包裹的监听函数
+  useEffect(() => {
+    console.log('winSize-effect:in')
+    setSize(
+      {
+        width: document.documentElement.clientWidth,
+        height: document.documentElement.clientHeight,
+      },
+      console.log('winSize-effect-setState:ok')
+    )
+    window.addEventListener('resize', deb)
+    console.log('winSize-effect:out')
+    return () => {
+      window.removeEventListener('resize', deb)
+    }
+  }, [])
+  console.log('winSize:out')
+  return size
 }
 
-function Screen(props) {
+function FlexPic(props) {
+  console.log('main:in')
+  const size = useWinSize()
   const [style, setStyle] = useState({}) //定义需要应用的style
   const ref = useRef() //获取img来得到宽高
   // 尺寸变化监听函数，设置新的style值
-  const onResize = useCallback(() => {
-    const size = {
-      width: document.documentElement.clientWidth,
-      height: document.documentElement.clientHeight,
+  const resize = useCallback(() => {
+    console.log('main-resize:in')
+    if (size === undefined) {
+      setStyle({
+        width: '100px',
+        height: '100px',
+        marginTop: '100px',
+        marginLeft: '100px',
+      })
+      console.log('main-resize:out')
+      return
     }
     const width = ref.current.width
     const height = ref.current.height
     let style
-    const zoom = 1.2
+    const zoom = 1.15
     if (width / size.width > height / size.height) {
       //竖屏
       const z = height / size.height
@@ -49,8 +86,9 @@ function Screen(props) {
       }
     }
     setStyle(style)
-  }, [])
-  const deb = useCallback(debounce(onResize, 10), []) // 节流函数包裹的监听函数
+    console.log('main-resize:out')
+  })
+
   //刚加载时Parallax化
   useEffect(() => {
     const el = document.getElementById('parallax-box')
@@ -58,13 +96,11 @@ function Screen(props) {
   }, [])
   //窗口尺寸变化监听
   useEffect(() => {
-    window.addEventListener('resize', deb)
-    onResize()
-    return () => {
-      window.removeEventListener('resize', deb)
-    }
-  }, [])
-  console.log(Object.prototype.toString.call(props.children))
+    console.log('main-effect:in')
+    resize()
+    console.log('main-effect:out')
+  }, [size])
+  console.log('main:out')
   return (
     <div>
       <div id='parallax-box' data-clip-relative-input>
@@ -83,7 +119,6 @@ function Screen(props) {
           <div
             data-depth={props.children.props['data-depth']}
             className='parallax-item'
-            id='a'
           >
             {props.children}
           </div>
@@ -94,7 +129,6 @@ function Screen(props) {
           height: 100vh;
           width: 100%;
           overflow: hidden;
-          text-align: center;
           position: absolute;
         }
         .parallax-item {
@@ -106,4 +140,4 @@ function Screen(props) {
   )
 }
 
-export default Screen
+export default FlexPic

@@ -1,6 +1,6 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
-/public/screen.jpg
+/public/*.jpg
 
 # dependencies
 /node_modules

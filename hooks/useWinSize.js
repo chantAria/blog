@@ -1,8 +1,10 @@
 import { useCallback, useState, useEffect } from 'react'
 
 export default function useWinSize() {
-  //获取窗口尺寸的hook,检测窗口size变化
-  const [size, setSize] = useState({})
+  const [size, setSize] = useState({
+    width: '0px',
+    height: '0px',
+  })
   //防抖函数
   const debounce = useCallback((fn, delay) => {
     let timer = null
@@ -13,24 +15,21 @@ export default function useWinSize() {
       timer = setTimeout(fn, delay)
     }
   }, [])
-  //第一个参数为声明的函数,即防抖函数的返回值
-  const onResize = useCallback(
-    debounce(() => {
-      setSize({
-        width: document.documentElement.clientWidth,
-        height: document.documentElement.clientHeight,
-      })
-    }, 100),
-    []
-  )
-  useEffect(() => {
-    window.addEventListener('resize', onResize)
+  const onResize = useCallback(() => {
     setSize({
       width: document.documentElement.clientWidth,
       height: document.documentElement.clientHeight,
     })
+  }, [])
+  const deb = useCallback(debounce(onResize, 10), []) // 节流函数包裹的监听函数
+  useEffect(() => {
+    setSize({
+      width: document.documentElement.clientWidth,
+      height: document.documentElement.clientHeight,
+    })
+    window.addEventListener('resize', deb)
     return () => {
-      window.removeEventListener('resize', onResize)
+      window.removeEventListener('resize', deb)
     }
   }, [])
   return size
